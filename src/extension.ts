@@ -1,21 +1,16 @@
 import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
+    const outputChannel = vscode.window.createOutputChannel("TODO/BUG Comments"); // Создание панели для отображения найденных комментариев
 
-    // Создаем панель для отображения найденных комментариев
-    const outputChannel = vscode.window.createOutputChannel("TODO/BUG Comments");
+    let disposable = vscode.commands.registerCommand('extension.findTodosAndBugs', () => { // Объявление команды
 
-    // Регистрация команды
-    let disposable = vscode.commands.registerCommand('extension.findTodosAndBugs', () => {
-
-        // Получаем все открытые документы
-        const editor = vscode.window.activeTextEditor;
+        const editor = vscode.window.activeTextEditor; // Получаем документы
         if (editor) {
             const document = editor.document;
             let todosAndBugs: string[] = [];
 
-            // Ищем все строки с TODO или BUG
-            for (let line = 0; line < document.lineCount; line++) {
+            for (let line = 0; line < document.lineCount; line++) { // Ищем все строки с TODO или BUG
                 let text = document.lineAt(line).text;
 
                 if (text.includes("TODO") || text.includes("BUG")) {
@@ -23,8 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
                 }
             }
 
-            // Показываем найденные комментарии в панели
-            if (todosAndBugs.length > 0) {
+            if (todosAndBugs.length > 0) { // Показываем найденные комментарии в панели
                 outputChannel.clear();
                 todosAndBugs.forEach(comment => outputChannel.appendLine(comment));
                 outputChannel.show();
