@@ -14,8 +14,8 @@
   "contributes": {
       "commands": [
           {
-              "command": "extension.findTodosAndBugs",
-              "title": "Find TODO/BUG Comments"
+            "command": "extension.findTodosAndBugs",
+            "title": "Find TODO/BUG Comments"
           }
       ]
   },
